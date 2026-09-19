@@ -1,17 +1,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // TODO Problem 1 - Run test cases and record any defects the test code finds in the comment above the test method.
-// DO NOT MODIFY THE CODE IN THE TESTS in this file, just the comments above the tests. 
 // Fix the code being tested to match requirements and make all tests pass. 
 
 [TestClass]
 public class TakingTurnsQueueTests
 {
     [TestMethod]
-    // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
+    /// Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
     // run until the queue is empty
-    // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // The Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
+    // Defect(s) Found: PersonQueue used Insert(0) causing LIFO instead of FIFO. 
+    /// GetNextPerson only checked "Turns > 1" which excluded infinite turns (<=0). 
+    // Fixed by changing PersonQueue.Enqueue to Add() and adding condition for Turns <= 0 
+    // to always re-add infinite turn people.
     public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
@@ -40,10 +42,11 @@ public class TakingTurnsQueueTests
     }
 
     [TestMethod]
-    // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
+    /// Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
-    // Defect(s) Found: 
+    // Defect(s) Found: Same as above - PersonQueue FIFO issue and infinite turns handling.
+    // After fixing both issues (Add() instead of Insert() and Turns <= 0 condition), this test passes.
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -82,10 +85,12 @@ public class TakingTurnsQueueTests
     }
 
     [TestMethod]
-    // Scenario: Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
+    /// Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found: Original GetNextPerson only re-added people when Turns > 1.
+    // Tim with Turns = 0 (infinite) was never re-added. Fixed by adding condition
+    // for Turns <= 0 to always re-add infinite turn people.
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -107,16 +112,17 @@ public class TakingTurnsQueueTests
             Assert.AreEqual(expectedResult[i].Name, person.Name);
         }
 
-        // Verify that the people with infinite turns really do have infinite turns.
+        // This will verify that the people with infinite turns really do have infinite turns.
         var infinitePerson = players.GetNextPerson();
         Assert.AreEqual(timTurns, infinitePerson.Turns, "People with infinite turns should not have their turns parameter modified to a very big number. A very big number is not infinite.");
     }
 
     [TestMethod]
-    // Scenario: Create a queue with the following people and turns: Tim (Forever), Sue (3)
+    /// Create a queue with the following people and turns: Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found: Same as above - negative turns (infinite) were not re-added.
+    // Fixed by adding condition for Turns <= 0 to always re-add people with infinite turns.
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
@@ -135,15 +141,16 @@ public class TakingTurnsQueueTests
             Assert.AreEqual(expectedResult[i].Name, person.Name);
         }
 
-        // Verify that the people with infinite turns really do have infinite turns.
+        // This verifies that the people with infinite turns really do have infinite turns.
         var infinitePerson = players.GetNextPerson();
         Assert.AreEqual(timTurns, infinitePerson.Turns, "People with infinite turns should not have their turns parameter modified to a very big number. A very big number is not infinite.");
     }
 
     [TestMethod]
-    // Scenario: Try to get the next person from an empty queue
+    ///Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
-    // Defect(s) Found: 
+    // Defect(s) Found: No defects found. The exception handling in GetNextPerson
+    // correctly throws InvalidOperationException with message "No one in the queue."
     public void TestTakingTurnsQueue_Empty()
     {
         var players = new TakingTurnsQueue();
