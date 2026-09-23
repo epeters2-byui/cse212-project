@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Problem 4: Maze navigation using a dictionary-based maze map.
+/// Problem 4: This code use Maze navigation using a dictionary-based maze map.
 /// The maze is represented as a dictionary where:
 //- Key: (x, y) coordinate tuple
 // Value: bool array [left, right, up, down] indicating valid directions

@@ -87,7 +87,7 @@ public static class SetsAndMaps
     }
 
     /// <summary>
-    /// Problem 3: Determine if two words are anagrams using a dictionary.
+    /// Problem 3:Use this Code to determine if two words are anagrams using a dictionary.
      
     /// Approach:
     // 1. Remove all spaces and convert to lowercase (case-insensitive, ignore spaces)
@@ -140,7 +140,7 @@ public static class SetsAndMaps
     }
 
     /// <summary>
-    /// Problem 5: Get earthquake summary from USGS API.
+    /// Problem 5: This Code can Get earthquake summary from USGS API.
     
     /// Approach:
     // 1. Send HTTP GET request to USGS GeoJSON API
