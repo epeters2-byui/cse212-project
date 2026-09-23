@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-/// <summary>
 /// Problem 4: This code use Maze navigation using a dictionary-based maze map.
 /// The maze is represented as a dictionary where:
 //- Key: (x, y) coordinate tuple
@@ -12,7 +11,6 @@ using System.Collections.Generic;
 // Moving Up: decreases Y coordinate
 // Moving Down: increases Y coordinate
 /// If a move is attempted in a direction with a wall (false), an exception is thrown.
-/// </summary>
 public class Maze
 {
     private readonly Dictionary<(int, int), bool[]> _mazeMap;
@@ -72,7 +70,6 @@ public class Maze
         _currX++;
     }
 
-    
     // Move up if possible.
     // Index 2 in directions array = Up
     // Decreases Y coordinate by 1
@@ -96,7 +93,6 @@ public class Maze
         _currY--;
     }
 
-    // <summary>
     // Move down if possible.
     // Index 3 in directions array = Down
     // Increases Y coordinate by 1

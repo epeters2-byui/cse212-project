@@ -6,8 +6,7 @@ using System.Net.Http;
 
 public static class SetsAndMaps
 {
-    /// <summary>
-    /// Problem 1: Find symmetric pairs of two-letter words using a set.
+        /// Problem 1: Find symmetric pairs of two-letter words using a set.
     // Time Complexity: O(n) - using HashSet for O(1) lookups
     // Space Complexity: O(n) - storing words in a set
 
@@ -19,7 +18,7 @@ public static class SetsAndMaps
     // 5. Skip words that are the same when reversed (like "aa")
  
     // Example: ["am", "at", "ma", "if", "fi"] -> ["am & ma", "if & fi"]
-    /// </summary>
+    
     public static string[] FindPairs(string[] words)
     {
         // Create a HashSet for O(1) lookups
@@ -47,7 +46,7 @@ public static class SetsAndMaps
         return result;
     }
 
-    /// <summary>
+    
     /// Problem 2: Read a census file and summarize degrees earned.
     /// The degree is located in column 4 (index 3) of the CSV file.
     /// 
@@ -59,7 +58,7 @@ public static class SetsAndMaps
     // 5. Return the dictionary with degree names as keys and counts as values
     /// 
     /// Example output: {"Bachelors": 5355, "HS-grad": 10501, ...}
-    /// </summary>
+    
     public static Dictionary<string, int> SummarizeDegrees(string filename)
     {
         var degrees = new Dictionary<string, int>();
@@ -86,7 +85,7 @@ public static class SetsAndMaps
         return degrees;
     }
 
-    /// <summary>
+    
     /// Problem 3:Use this Code to determine if two words are anagrams using a dictionary.
      
     /// Approach:
@@ -139,7 +138,7 @@ public static class SetsAndMaps
         return true;
     }
 
-    /// <summary>
+    
     /// Problem 5: This Code can Get earthquake summary from USGS API.
     
     /// Approach:
